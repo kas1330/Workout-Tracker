@@ -15,6 +15,14 @@ module.exports = function(app){
     });
 }
 
+app.post("api/workouts", function (req,res){
+    Workout.create()
+    .then(data =>res.json(data))
+    .catch(err => {
+        res.json(err)
+    })
+});
+
 
 // /api/workouts
 // GET PUT POST
