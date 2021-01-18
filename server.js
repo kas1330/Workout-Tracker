@@ -1,26 +1,31 @@
-const mongoose = require('mongoose');
-const express = require('express'); 
+const mongoose = require("mongoose");
+const express = require("express");
 const PORT = process.env.PORT || 3000;
 
 const app = express();
-
+//this is to parse the data coming through the port. it comes through encrypted, these 2 lines decrypt.
+//This is what defines req.body
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+//allows access to the public folder on the client side.
 app.use(express.static("public"));
 
-mongoose.connect(
-    process.env.MONGODB_URI || "mongodb://localhost/workout-tracker234",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-    }
-  );
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+});
 
-  // routes
-app.use(require("./routes/api.js"));
+const apiRoutes = require("./routes/api.js");
+
+apiRoutes(app);
+
+const htmlRoutes = require("./routes/html-routes");
+htmlRoutes(app);
+
+// routes
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
