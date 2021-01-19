@@ -2,6 +2,7 @@ const express = require("express");
 const Workout = require("../models/workouts");
 var router = express.Router();
 
+//export everything within this function, 
 module.exports = function (app) {
   app.get("/api/workouts", function (req, res) {
     Workout.find()
@@ -12,6 +13,7 @@ module.exports = function (app) {
         res.json(err);
       });
   });
+//   create a new workout 
   app.post("/api/workouts", function (req, res) {
     Workout.create(req.body)
       .then((data) => res.json(data))
@@ -19,6 +21,7 @@ module.exports = function (app) {
         res.json(err);
       });
   });
+//   update current workout 
   app.put("/api/workouts/:id", function (req, res) {
     var id = req.params.id;
     Workout.update(
