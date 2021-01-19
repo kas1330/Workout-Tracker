@@ -2,7 +2,7 @@ const express = require("express");
 const Workout = require("../models/workouts");
 var router = express.Router();
 
-//export everything within this function, 
+//export everything within this function,
 module.exports = function (app) {
   app.get("/api/workouts", function (req, res) {
     Workout.find()
@@ -13,7 +13,7 @@ module.exports = function (app) {
         res.json(err);
       });
   });
-//   create a new workout 
+  //   create a new workout
   app.post("/api/workouts", function (req, res) {
     Workout.create(req.body)
       .then((data) => res.json(data))
@@ -21,7 +21,7 @@ module.exports = function (app) {
         res.json(err);
       });
   });
-//   update current workout 
+  //   update current workout
   app.put("/api/workouts/:id", function (req, res) {
     var id = req.params.id;
     Workout.update(
@@ -40,8 +40,17 @@ module.exports = function (app) {
         res.json(err);
       });
   });
-};
 
+  app.get("/api/workouts/range", function (req, res) {
+    Workout.find()
+      .then((data) => {
+        res.json(data);
+      })
+      .catch((err) => {
+        res.json(err);
+      });
+  });
+};
 
 // /api/workouts
 // GET PUT POST
