@@ -12,7 +12,6 @@ app.use(express.json());
 //allows access to the public folder on the client side.
 app.use(express.static('public'));
 
-console.log('process.env.MONGODB_URI_NEW!!!!!!!! ', process.env.MONGODB_URI_NEW);
 mongoose.connect(process.env.MONGO_URI_NEW, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
