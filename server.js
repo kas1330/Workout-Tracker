@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const express = require('express');
+const mongoose = require("mongoose");
+const express = require("express");
 const PORT = process.env.PORT || 3000;
-require('dotenv').config();
+require("dotenv").config();
 
 const app = express();
 //this is to parse the data coming through the port. it comes through encrypted, these 2 lines decrypt.
@@ -10,20 +10,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 //allows access to the public folder on the client side.
-app.use(express.static('public'));
+app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGO_URI_NEW, {
+mongoose.connect(process.env.MONGO_URI_NEW || "mongodb://localhost/workout", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
   useFindAndModify: false,
 });
 
-const apiRoutes = require('./routes/api.js');
+const apiRoutes = require("./routes/api.js");
 
 apiRoutes(app);
 
-const htmlRoutes = require('./routes/html-routes');
+const htmlRoutes = require("./routes/html-routes");
 htmlRoutes(app);
 
 // routes
